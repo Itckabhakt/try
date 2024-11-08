@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>JWPlayer with DASH</title>
+    <script src="//ssl.p.jwpcdn.com/player/v/8.25.1/jwplayer.js"></script>
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+    .jwplayer {
+        position: absolute !important;
+    }
+    .jwplayer.jw-flag-aspect-mode {
+        min-height: 100%;
+        max-height: 100%;
+    }
+</style>
+<body>
+
+<div id="player"></div>
+
+<script>
+    jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
+
+    window.onload = function() {
+        var playerInstance = jwplayer("player");
+
+        // Define the DASH stream source without Authorization header
+        var source = {
+            "file": "https://floral-mode-c21b.podik62652.workers.dev/linear007-gb-dash1-prd-ak.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(skysportscricket)/manifest_720-120.mpd",
+            "type": "dash",
+            "default": true
+        };
+
+        // Configure DRM clear key
+        source.drm = { 
+            "clearkey": { 
+                "keyId": "00053ac1e9b1231eed3eb4e3540b3ae1", 
+                "key": "0f03d8541826af3d9acbac975d751165" 
+            } 
+        };
+
+        // Player setup with the DASH stream source
+        playerInstance.setup({
+            playlist: [{
+                "sources": [source]
+            }],
+            width: "100%",
+            height: "100%",
+            aspectratio: "16:9",
+            autostart: true,
+            cast: {
+                appid: 'CC1AD845' // Chromecast support
+            }
+        });
+    };
+</script>
+
+</body>
+</html>
